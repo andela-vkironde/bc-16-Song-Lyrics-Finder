@@ -26,9 +26,8 @@ print("Welcome to My Lyric Finder.")
 print("This is a simple application to search, view and save song lyrics.")
 
 def view_lyrics():
-
+    
     track_id = input ( "Enter the Track ID from the above results: " )
-    track_id = track_id
     api_key = "fede23bab51e23e61888932cd118ca2c"
     response = requests.get("https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id="+track_id+"&apikey="+api_key)
     
@@ -43,8 +42,9 @@ def view_lyrics():
                 print("No lyrics found")
             else:
                 song_id = track_id
-                body = output
-                lyrics_found = LyricsStore(song_id, body)
+                song_lyrics = output
+
+                lyrics_found = LyricsStore(song_id, json.dumps(song_lyrics))
                 session.add(lyrics_found)
                 session.commit()
                 print("Lyrics saved.")
