@@ -1,14 +1,65 @@
 import json
 import requests
-import pickle
+import sys
+import socket
 
-# Show a simple message.
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from dbmodel import LyricsStore, Base
+
+
+#Start the application
+mysession = sessionmaker()
+
+
+engine = create_engine('sqlite:///lyrics.db')
+# Bind the engine to the metadata of the Base class 
+
+
+mysession.configure(bind=engine)
+
+session = mysession()
+
+
 print("Welcome to My Lyric Finder.")
 print("This is a simple application to search, view and save song lyrics.")
 
+def view_lyrics():
+
+    track_id = input ( "Enter the Track ID from the above results: " )
+    track_id = track_id
+    api_key = "fede23bab51e23e61888932cd118ca2c"
+    response = requests.get("https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id="+track_id+"&apikey="+api_key)
+    
+    output = json.loads(response.text)
+    
+    print(output['message']['body']['lyrics']['lyrics_body'])
+
+    save_lyrics()
+
+    def save_lyrics():
+        if output== 0:print("No lyrics found")
+        else:
+            lyrics_found = LyricsStore(song_id, body)
+            session.add(lyrics_found)
+            session.commit()
+            print("Lyrics saved.")
+    except socket.timeout:
+        print ("Timeout raised and caught")
+
+def clear_lyricstore():
+    
+   """ song clear - Clear entire local song database."""
+    try:
+        # Drop all tables then recreate them.
+        Base.metadata.drop_all(bind=engine)
+        print("Database cleared successfully.")
+        Base.metadata.create_all(bind=engine)
+    except:
+        session.rollback()
 
 def search_song():
-
     track_name = input("Enter the Song title:")
     api_key = "fede23bab51e23e61888932cd118ca2c"
 
@@ -36,29 +87,6 @@ def search_song():
             print('')
     except json.decoder.JSONDecodeError:
         print("Cannot Decode JSON")
-
-
-def view_lyrics():
-
-    print("Use the artist id from your song choice to get the song lyrics.")
-    track_id = input ( "Enter the Track ID from the above results: " )
-
-api_key = "fede23bab51e23e61888932cd118ca2c"
-
-response = requests.get ( "https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id="+track_id+"&apikey="+api_key)
-try:
-    response_data = response.json()
-    message = response_data.get('message')
-    body = message.get('body')
-    lyrics = body.get('lyrics')
-    lyricsid = lyrics.get('lyric_id')
-    for l in lyricsid:
-        l = l.get('lyrics_body')
-        print('Lyrics {}'.format(t.get('lyrics_body')))
-        print('')
-    # print(json.dumps(response_data, sort_keys=True, indent=4))
-except json.decoder.JSONDecodeError:
-    print("Cannot Decode JSON")
 
 search_song()
 view_lyrics()
