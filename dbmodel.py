@@ -12,7 +12,7 @@ Base = declarative_base()
 class LyricsStore(Base):
     __tablename__ = 'lyric_store'
 
-    # Columns for the table song_lyrics
+    # Columns for the table lyric_store
     id = Column(Integer, primary_key=True)
     song_id = Column(String(200), nullable=False)
     song_lyrics = Column(String(1062), nullable=False)

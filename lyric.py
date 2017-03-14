@@ -36,21 +36,25 @@ def view_lyrics():
     
     print(output['message']['body']['lyrics']['lyrics_body'])
 
-    save_lyrics()
 
-    def save_lyrics():
-        if output== 0:print("No lyrics found")
-        else:
-            lyrics_found = LyricsStore(song_id, body)
-            session.add(lyrics_found)
-            session.commit()
-            print("Lyrics saved.")
-    except socket.timeout:
-        print ("Timeout raised and caught")
+    def save_lyrics(track_id):
+        try:
+            if output== 0:
+                print("No lyrics found")
+            else:
+                song_id = track_id
+                body = output
+                lyrics_found = LyricsStore(song_id, body)
+                session.add(lyrics_found)
+                session.commit()
+                print("Lyrics saved.")
+        except socket.timeout:
+            print ("Timeout raised and caught")
+
+    save_lyrics(track_id)
 
 def clear_lyricstore():
-    
-   """ song clear - Clear entire local song database."""
+    """ song clear - Clear entire local song database."""
     try:
         # Drop all tables then recreate them.
         Base.metadata.drop_all(bind=engine)
