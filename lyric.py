@@ -47,7 +47,7 @@ def view_lyrics():
             else:
                 song_id = track_id
                 song_lyrics = output
-
+                #Store lyrics found on lyrics db
                 lyrics_found = LyricsStore(song_id, json.dumps(song_lyrics))
                 session.add(lyrics_found)
                 session.commit()
