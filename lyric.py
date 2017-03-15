@@ -7,9 +7,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from docopt import docopt, DocoptExit 
 from colorama import init, Fore 
-init()
+init() 
 from pyfiglet import Figlet
-from termcolor import colored
+from termcolor import colored  #Print my welcoming instruction in colour
 from tabulate import tabulate #not used yet
 
 from dbmodel import LyricsStore, Base
