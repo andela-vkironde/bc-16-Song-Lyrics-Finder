@@ -27,11 +27,11 @@ GETTING STARTED:
  - Activate Virtual Environment
  
  - pip insall -r requirements.txt
- -
+ 
  - run dbmodel.py on command line, on the chosen directory, to create local database in same directory
  
  - run python lyric.py on command line
- -
+ 
  
  Functionalities:
 `Enter the song name` - returns the top 10 artists based on song_name and returns Track ID, Song Name and Artist Name(s) on a table. Pretty Table module is used for this and term color is used for the display color. The Track ID will be used to find lyrics.
