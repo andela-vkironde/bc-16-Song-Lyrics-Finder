@@ -1,7 +1,7 @@
 ![The App](https://cdn-images-1.medium.com/max/800/1*TiJXsrlqhbgkV5J8C-qajA.png)
 
 
-##The Task:##
+The Task:
 
 For this project, you will be expected to make use of MusixMatch API or RapGenius API.
 
@@ -16,7 +16,7 @@ song save `<song_id>` - Store song details and lyrics locally.
 song clear - Clear entire local song database.
 
 
-##GETTING STARTED:##
+GETTING STARTED:
 
  - Navigate to a directory of choice 
  
@@ -33,7 +33,7 @@ song clear - Clear entire local song database.
  - run python lyric.py on command line
  -
  
-## Functionalities:##
+ Functionalities:
 `Enter the song name` - returns the top 10 artists based on song_name and returns Track ID, Song Name and Artist Name(s) on a table. Pretty Table module is used for this and term color is used for the display color. The Track ID will be used to find lyrics.
 
 Usage:
